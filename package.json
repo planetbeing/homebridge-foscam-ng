@@ -1,0 +1,25 @@
+{
+  "name": "homebridge-foscam-ng",
+  "version": "1.0.0",
+  "description": "Foscam plugin for homebridge",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "homebridge-plugin",
+    "foscam"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "foscam-client": "^0.3.0",
+    "ip": "^1.1.3",
+    "rtsp-stream": "^1.0.0",
+    "sdp-transform": "^1.6.2"
+  },
+  "engines": {
+    "node": ">=0.12.0",
+    "homebridge": ">=0.3.4"
+  }
+}
