@@ -6,13 +6,14 @@ const EventEmitter = require('events').EventEmitter;
 const ip = require('ip');
 
 class FoscamStream extends EventEmitter {
-    constructor(uri, controllers) {
+    constructor(uri, log) {
         super();
         let self = this;
 
-        self.streamControllers = controllers;
         self._ready = false;
+        self.log = log;
 
+        self.uri = uri;
         self.rtspClient = new RTSPClient(uri);
 
         self.rtspClient.on('sdp', function() {
@@ -36,16 +37,6 @@ class FoscamStream extends EventEmitter {
                 resolve();
             });
         });
-    }
-
-    isHandlerForRequest(request) {
-        let self = this;
-        for(let controller of self.streamControllers) {
-            if(controller.sessionIdentifier == request['sessionID'])
-                return true;
-        }
-
-        return false;
     }
 
     prepareStream(request, callback) {
@@ -77,6 +68,8 @@ class FoscamStream extends EventEmitter {
                 }
             };
 
+            console.log('Video: ' + self.rtspClient.video.uri + ' -> ' + currentAddress + ': RTP ' + videoSettings.rtpPort.toString() + ' -> ' + request['video']['proxy_rtp'].toString() + ' / RTCP ' + videoSettings.rtcpPort.toString() + ' -> ' + request['video']['proxy_rtcp'].toString());
+            console.log('Audio: ' + self.rtspClient.audio.uri + ' -> ' + currentAddress + ': RTP ' + audioSettings.rtpPort.toString() + ' -> ' + request['audio']['proxy_rtp'].toString() + ' / RTCP ' + audioSettings.rtcpPort.toString() + ' -> ' + request['audio']['proxy_rtcp'].toString());
             callback(response);
         });
     }
@@ -86,18 +79,21 @@ class FoscamStream extends EventEmitter {
         let requestType = request['type'];
         if(requestType == 'start') {
             self.rtspClient.play();
+            console.log('Play: ' + self.uri);
         } else if(requestType == 'stop') {
             self.rtspClient.teardown();
+            console.log('Stop: ' + self.uri);
         }
     }
 }
 
 class FoscamAccessory {
-    constructor(hap, config) {
+    constructor(hap, config, log) {
         let self = this;
         const StreamController = hap.StreamController;
 
         self.hap = hap;
+        self.log = log;
 
         let username = config.username || 'admin';
         let password = config.password || '';
@@ -166,16 +162,16 @@ class FoscamAccessory {
 
     _createStreamControllers(numStreams, uri, options) {
         let self = this;
-        let controllersForURI = [];
+        let stream = new FoscamStream(uri, self.log);
+
         for(let i = 0; i < numStreams; i++) {
-            var streamController = new self.hap.StreamController(self._streamControllerIdx++, options, self);
+            var streamController = new self.hap.StreamController(self._streamControllerIdx++, options, stream);
 
             self.services.push(streamController.service);
             self.streamControllers.push(streamController);
-            controllersForURI.push(streamController);
         }
 
-        self.streams.push(new FoscamStream(uri, controllersForURI));
+        self.streams.push(stream);
     }
 
     handleSnapshotRequest(request, callback) {
@@ -185,31 +181,6 @@ class FoscamAccessory {
         });
     }
 
-    streamForRequest(request) {
-        let self = this;
-        for(let stream of self.streams) {
-            if(stream.isHandlerForRequest(request))
-                return stream;                
-        }
-
-        return null;
-    }
-
-    prepareStream(request, callback) {
-        let self = this;
-        let stream = self.streamForRequest(request);
-        stream.ready().then(() => {
-            stream.prepareStream(request, callback);
-        });
-    }
-
-    handleStreamRequest(request) {
-        let self = this;
-        let stream = self.streamForRequest(request);
-        stream.ready().then(() => {
-            stream.handleStreamRequest(request);
-        });
-    }
 }
 
 module.exports = FoscamAccessory;
