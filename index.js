@@ -26,14 +26,16 @@ class FoscamPlatform {
 
     didFinishLaunching() {
         let self = this;
-        let name = "Foscam";
-        let uuid = UUIDGen.generate(name);
 
-        let cameraAccessory = new Accessory(name, uuid, hap.Accessory.Categories.CAMERA);
         let cameraSource = new FoscamAccessory(hap, self.config, self.log);
-        cameraAccessory.configureCameraSource(cameraSource);
+        cameraSource.info().then(info => {
+            let name = info.devName;
+            let uuid = UUIDGen.generate('Foscam-NG:' + info.mac);
+            let cameraAccessory = new Accessory(name, uuid, hap.Accessory.Categories.CAMERA);
+            cameraAccessory.configureCameraSource(cameraSource);
 
-        self.api.publishCameraAccessories("Foscam-NG", [cameraAccessory]);
+            self.api.publishCameraAccessories("Foscam-NG", [cameraAccessory]);
+        });
     }    
 }
 

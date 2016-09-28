@@ -1,7 +1,7 @@
 {
   "name": "homebridge-foscam-ng",
-  "version": "1.0.0",
-  "description": "Foscam plugin for homebridge",
+  "version": "0.1.0",
+  "description": "Foscam plugin for homebridge.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +10,11 @@
     "homebridge-plugin",
     "foscam"
   ],
-  "author": "",
+  "author": "David Wang <planetbeing@gmail.com> (https://planetbei.ng/)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/planetbeing/homebridge-foscam-ng.git"
+  },
   "license": "ISC",
   "dependencies": {
     "foscam-client": "^0.3.0",
