@@ -1,6 +1,6 @@
 {
   "name": "homebridge-foscam-ng",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Foscam plugin for homebridge.",
   "main": "index.js",
   "scripts": {
