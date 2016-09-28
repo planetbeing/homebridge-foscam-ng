@@ -1,7 +1,7 @@
 "use strict";
 var Accessory, hap, UUIDGen;
 
-const FoscamAccessory = require('./foscam');
+const FoscamAccessory = require('./lib/FoscamAccessory');
 
 class FoscamPlatform {
     constructor(log, config, api) {
