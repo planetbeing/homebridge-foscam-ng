@@ -14,7 +14,22 @@ Configuration sample:
             "password": "password",
             "host": "192.168.0.121",
             "port": 88,
-            "gain": 6
+            "gain": 6,
+            "motionDetector": {
+                "schedule": {
+                    "monday": [["0:00", "24:00"]],
+                    "tuesday": [["0:00", "24:00"]],
+                    "wednesday": [["0:00", "24:00"]],
+                    "thursday": [["0:00", "24:00"]],
+                    "friday": [["0:00", "24:00"]],
+                    "saturday": [["0:00", "24:00"]],
+                    "sunday": [["0:00", "24:00"]]
+                },
+
+                "areas": [
+                    [[0, 0], [9, 9]]
+                ]
+            }
         }
 
 ```
