@@ -27,5 +27,7 @@ Fields:
 * "host": The local IP address of your camera. (required)
 * "port": The RTP and HTTP port for the camera. Manufacturer default is 88. (required)
 * "gain": Foscam audio output tends to be on the quiet side. This is the gain in decibels to boost the audio. Use 0 for no gain. (required)
-* "streamType": Video setting to overwrite for iOS's dynamic configuration. Default to 3 ("user-defined"). (optional)
+* "streamType": Video setting to overwrite for iOS's dynamic configuration. Defaults to 3 ("user-defined"). (optional)
+* "maxMainStreams": Number of simultaneous streams to allow from the camera's "main" stream. Defaults to 2. (optional)
+* "maxSubStreams": Number of simultaneous streams to allow from the camera's "main" stream. Defaults to 2. (optional)
 
