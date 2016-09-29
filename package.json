@@ -1,6 +1,6 @@
 {
   "name": "homebridge-foscam-ng",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Foscam plugin for homebridge.",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "homebridge-foscam-stream": "^0.1.0"
+    "homebridge-foscam-stream": "^0.1.1"
   },
   "engines": {
     "node": ">=6.6.0",
