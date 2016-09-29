@@ -1,7 +1,7 @@
 "use strict";
 var Accessory, hap, UUIDGen;
 
-const FoscamAccessory = require('./lib/FoscamAccessory');
+const FoscamAccessory = require('homebridge-foscam-stream').FoscamAccessory;
 
 class FoscamPlatform {
     constructor(log, config, api) {
