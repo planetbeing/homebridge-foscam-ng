@@ -29,6 +29,11 @@ Configuration sample:
                 "areas": [
                     [[0, 0], [9, 9]]
                 ]
+            },
+            "speaker": {
+                "enabled": true,
+                "compression": true,
+                "gain": 1
             }
         }
 
@@ -55,4 +60,7 @@ Fields:
   * "triggerInterval": Time in seconds (5-15) to consider the motion detection triggered after detecting a motion, suppressing additional detection of motion during that
     time period. Defaults to 5. (optional)
   * "sensitivity": 0 for low, 1 for normal, 2 for high, 3 for lower, 4 for lowest. Defaults to 1. (optional)
-
+* "speaker": Add to configure speaker settings. Defaults to enabled. (optional)
+  * "enabled": Set to false to disable. Defaults to true. (optional)
+  * "compression": Set to false to disable compression. No compression can result in better quality at the cost of 8 times more bandwidth. Defaults to true. (optional)
+  * "gain": This is gain in decibels to boost the speaker volume. Defaults to 0. (optional)
