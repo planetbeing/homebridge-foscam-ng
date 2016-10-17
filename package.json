@@ -17,7 +17,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "homebridge-foscam-stream": "^0.3.7"
+    "homebridge-foscam-stream": "^0.3.8"
   },
   "engines": {
     "node": ">=6.6.0",
